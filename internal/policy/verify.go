@@ -1167,9 +1167,10 @@ func verifyGitObjectAndAttestations(ctx context.Context, policy *State, target s
 				// explicitly not looking at the attestation
 				// that applies to the _push_
 				// thus, we also set threshold to 1
-				verifier.threshold = 1
+				tagVerifier := *verifier
+                tagVerifier.threshold = 1
 
-				_, err := verifier.Verify(ctx, options.tagObjectID, nil)
+				_, err := tagVerifier.Verify(ctx, options.tagObjectID, nil)
 				if err == nil {
 					// Signature verification succeeded
 					tagObjVerified = true
